@@ -2,16 +2,6 @@
 
 The backend of Grocery Sync is developed using Java and the Spring Framework. It is designed to provide a robust and scalable API for the Grocery Sync application, leveraging modern security and database management practices. This README focuses on the backend components, highlighting the technologies and methodologies used.
 
-## Table of Contents
-
-1. [Introduction](#introduction)
-2. [Technologies Used](#technologies-used)
-3. [Architecture](#architecture)
-4. [Security](#security)
-5. [Database Management](#database-management)
-6. [API Endpoints](#api-endpoints)
-7. [Setup Instructions](#setup-instructions)
-
 ## Introduction
 
 The backend of Grocery Sync is a critical component that handles data management, security, and communication with supermarket APIs. Built with Spring Boot, it provides a RESTful API to serve data to the frontend application, ensuring a seamless user experience.
