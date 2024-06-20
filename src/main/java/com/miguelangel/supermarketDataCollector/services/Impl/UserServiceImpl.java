@@ -13,8 +13,9 @@ import com.miguelangel.supermarketDataCollector.services.IUserService;
 
 /**
  * Implementation of the IUserService interface that provides operations for managing users.
- * <p>
- * Author: Miguel Ángel Moreno García
+ *
+ *  @since 2024
+ *  @author Miguel Angel Moreno Garcia
  */
 @Service
 public class UserServiceImpl implements IUserService {

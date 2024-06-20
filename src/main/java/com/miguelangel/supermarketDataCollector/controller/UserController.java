@@ -22,6 +22,12 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.*;
 
+/**
+ * Controller for handling user-related HTTP requests.
+ *
+ * @since 2024
+ * @author Miguel Ángel Moreno García
+ */
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -38,6 +44,12 @@ public class UserController {
         this.roleService = roleService;
     }
 
+    /**
+     * Registers a new user.
+     *
+     * @param registerDTO the user's registration details
+     * @return a ResponseEntity containing the registered user's information and an HTTP status code
+     */
     @PostMapping("/register")
     private ResponseEntity<UserDTO> registerUser(@RequestBody RegisterDTO registerDTO) {
         Optional<UserEntity> oldUser = userService.findByEmail(registerDTO.getEmail());
@@ -63,6 +75,12 @@ public class UserController {
         }
     }
 
+    /**
+     * Logs in a user.
+     *
+     * @param loginDto the user's login credentials
+     * @return a ResponseEntity containing the logged-in user's information and an HTTP status code
+     */
     @PostMapping("/login")
     public ResponseEntity<UserDTO> login(@RequestBody LoginDTO loginDto) {
         Authentication authentication = authenticationManager.authenticate(
@@ -81,6 +99,12 @@ public class UserController {
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
+    /**
+     * Updates user information.
+     *
+     * @param user the updated user information
+     * @return a ResponseEntity containing the updated user's information and an HTTP status code
+     */
     @PutMapping("/update")
     public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO user) {
         UserDTO savedUserDTO = null;

@@ -17,17 +17,26 @@ import com.miguelangel.supermarketDataCollector.dto.ShoppingListDTO;
 import com.miguelangel.supermarketDataCollector.entity.ShoppingList;
 import com.miguelangel.supermarketDataCollector.services.IShoppingListService;
 
+/**
+ * Controller for handling shoppingList-related HTTP requests.
+ *
+ * @since 2024
+ * @author Miguel Ángel Moreno García
+ */
 @RestController
 @RequestMapping("/api/shoppingList")
 public class ShoppingListController {
-    //private final Logger logger = LoggerFactory.getLogger(ShoppingListController.class);
-
     @Autowired
     IShoppingListService shoppingListService;
 
     @Autowired
     IUserService userService;
 
+    /**
+     * Retrieves a list of shopping lists.
+     *
+     * @return a list of ShoppingListDTO objects representing the shopping lists
+     */
     @GetMapping(produces = "application/json")
     private List<ShoppingListDTO> getShoppingLists() {
         List<ShoppingList> shoppingLists = shoppingListService.findAll();
@@ -35,6 +44,12 @@ public class ShoppingListController {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Retrieves shopping lists associated with a specific user.
+     *
+     * @param userId the ID of the user
+     * @return a ResponseEntity containing the shopping lists associated with the user and an HTTP status code
+     */
     @GetMapping(value = "/findByUserId", produces = "application/json")
     private ResponseEntity<List<ShoppingListDTO>> getShoppingListByUserId(@RequestParam(value = "userId") int userId) {
         List<ShoppingList> shoppingLists;
@@ -48,6 +63,12 @@ public class ShoppingListController {
         return new ResponseEntity<>(shoppingListDTO, HttpStatus.OK);
     }
 
+    /**
+     * Saves a new shopping list.
+     *
+     * @param shoppingListResponseDTO the shopping list information
+     * @return a ResponseEntity containing the newly created shopping list and an HTTP status code
+     */
     @PostMapping
     private ResponseEntity<ShoppingListDTO> saveShoppingList(
             @RequestBody ShoppingListResponseDTO shoppingListResponseDTO) {
@@ -66,6 +87,12 @@ public class ShoppingListController {
         }
     }
 
+    /**
+     * Updates an existing shopping list.
+     *
+     * @param shoppingListResponseDTO the updated shopping list information
+     * @return a ResponseEntity containing the updated shopping list and an HTTP status code
+     */
     @PutMapping(value = "/update")
     private ResponseEntity<ShoppingListDTO> updateShoppingList(
             @RequestBody ShoppingListResponseDTO shoppingListResponseDTO
@@ -79,6 +106,13 @@ public class ShoppingListController {
         }
     }
 
+    /**
+     * Imports a shopping list using a unique code.
+     *
+     * @param uniqueCode       the unique code of the shopping list to import
+     * @param applicantUserId  the ID of the user requesting to import the shopping list
+     * @return a ResponseEntity indicating the success or failure of the import operation and an HTTP status code
+     */
     @GetMapping(value = "/import")
     private ResponseEntity<String> importShoppingList(
             @RequestParam(value = "uniqueCode") String uniqueCode,
@@ -102,6 +136,13 @@ public class ShoppingListController {
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
+    /**
+     * Deletes a shopping list associated with a user.
+     *
+     * @param userId         the ID of the user
+     * @param shoppingListId the ID of the shopping list to delete
+     * @return a ResponseEntity indicating the success or failure of the deletion operation and an HTTP status code
+     */
     @DeleteMapping(value = "/delete")
     public ResponseEntity<Boolean> deleteShoppingListByUserId(
             @RequestParam("userId") int userId,
@@ -115,6 +156,13 @@ public class ShoppingListController {
         }
     }
 
+    /**
+     * Removes changes made to a shopping list by a user.
+     *
+     * @param userId         the ID of the user
+     * @param shoppingListId the ID of the shopping list
+     * @return a ResponseEntity indicating the success or failure of the operation and an HTTP status code
+     */
     @GetMapping(value = "/removeChanges")
     public ResponseEntity<Boolean> removeChanges(
             @RequestParam("userId") int userId,

@@ -16,6 +16,14 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
+/**
+ * Represents the price history of a product within the supermarket data collection system.
+ * Each record stores the price, sale price, and bulk price of a product on a specific date.
+ * This class is mapped to the "pricehistory" table in the database.
+ *
+ * @since 2024
+ * @author Miguel Angel Moreno Garcia
+ */
 @Entity
 @Table(name = "pricehistory")
 @NamedQueries({ @NamedQuery(name = "PriceHistory.lastPrice", query = """
@@ -50,16 +58,33 @@ public class PriceHistory implements java.io.Serializable {
 	@Column(name = "bulk_price", precision = 19, scale = 2)
 	private BigDecimal bulkPrice;
 
+	/**
+	 * Default constructor.
+	 */
 	public PriceHistory() {
 	}
 
+	/**
+	 * Constructs a PriceHistory with the specified id and product.
+	 *
+	 * @param id the composite id of the price history
+	 * @param product the associated product
+	 */
 	public PriceHistory(PriceHistoryId id, Product product) {
 		this.id = id;
 		this.product = product;
 	}
 
-	public PriceHistory(PriceHistoryId id, Product product, BigDecimal price, BigDecimal salePrice,
-						BigDecimal bulkPrice) {
+	/**
+	 * Constructs a PriceHistory with the specified id, product, price, sale price, and bulk price.
+	 *
+	 * @param id the composite id of the price history
+	 * @param product the associated product
+	 * @param price the price of the product
+	 * @param salePrice the sale price of the product
+	 * @param bulkPrice the bulk price of the product
+	 */
+	public PriceHistory(PriceHistoryId id, Product product, BigDecimal price, BigDecimal salePrice, BigDecimal bulkPrice) {
 		this.id = id;
 		this.product = product;
 		this.price = price;
@@ -67,42 +92,92 @@ public class PriceHistory implements java.io.Serializable {
 		this.bulkPrice = bulkPrice;
 	}
 
+	/**
+	 * Returns the id of the price history.
+	 *
+	 * @return the id of the price history
+	 */
 	public PriceHistoryId getId() {
 		return this.id;
 	}
 
+	/**
+	 * Sets the id of the price history.
+	 *
+	 * @param id the id of the price history
+	 */
 	public void setId(PriceHistoryId id) {
 		this.id = id;
 	}
 
+	/**
+	 * Returns the associated product.
+	 *
+	 * @return the associated product
+	 */
 	public Product getProduct() {
 		return this.product;
 	}
 
+	/**
+	 * Sets the associated product.
+	 *
+	 * @param product the associated product
+	 */
 	public void setProduct(Product product) {
 		this.product = product;
 	}
 
+	/**
+	 * Returns the price of the product.
+	 *
+	 * @return the price of the product
+	 */
 	public BigDecimal getPrice() {
 		return this.price;
 	}
 
+	/**
+	 * Sets the price of the product.
+	 *
+	 * @param price the price of the product
+	 */
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 
+	/**
+	 * Returns the sale price of the product.
+	 *
+	 * @return the sale price of the product
+	 */
 	public BigDecimal getSalePrice() {
 		return this.salePrice;
 	}
 
+	/**
+	 * Sets the sale price of the product.
+	 *
+	 * @param salePrice the sale price of the product
+	 */
 	public void setSalePrice(BigDecimal salePrice) {
 		this.salePrice = salePrice;
 	}
 
+	/**
+	 * Returns the bulk price of the product.
+	 *
+	 * @return the bulk price of the product
+	 */
 	public BigDecimal getBulkPrice() {
 		return this.bulkPrice;
 	}
 
+	/**
+	 * Sets the bulk price of the product.
+	 *
+	 * @param bulkPrice the bulk price of the product
+	 */
 	public void setBulkPrice(BigDecimal bulkPrice) {
 		this.bulkPrice = bulkPrice;
 	}

@@ -7,8 +7,9 @@ import com.miguelangel.supermarketDataCollector.entity.UserEntity;
 
 /**
  * Interface defining operations available for managing users.
- * <p>
- * Author: Miguel Ángel Moreno García
+ *
+ *  @since 2024
+ *  @author Miguel Angel Moreno Garcia
  */
 public interface IUserService {
 
@@ -16,7 +17,7 @@ public interface IUserService {
      * Finds a user by their unique identifier.
      *
      * @param id The unique identifier of the user.
-     * @return An Optional that may contain the found user, or empty if not found.
+     * @return An Optional containing the found user, or empty if not found.
      */
     Optional<UserEntity> findById(int id);
 
@@ -32,7 +33,7 @@ public interface IUserService {
      * Finds a user by their email address.
      *
      * @param email The email address of the user.
-     * @return An Optional that may contain the found user, or empty if not found.
+     * @return An Optional containing the found user, or empty if not found.
      */
     Optional<UserEntity> findByEmail(String email);
 

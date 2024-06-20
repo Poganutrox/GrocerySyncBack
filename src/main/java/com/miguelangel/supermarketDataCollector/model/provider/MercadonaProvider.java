@@ -38,6 +38,14 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 
+/**
+ * MercadonaProvider is a service that implements the IProvider interface.
+ * This service is responsible for collecting product data from the Mercadona supermarket.
+ * It fetches product information from Mercadona's online store and organizes it into entities.
+ *
+ * @since 2024
+ * @author Miguel Angel Moreno Garcia
+ */
 @Service
 @Order(OrderProvider.MERCADONA)
 public class MercadonaProvider implements IProvider {

@@ -24,25 +24,25 @@ import com.miguelangel.supermarketDataCollector.services.IUserService;
 import jakarta.persistence.EntityManager;
 
 /**
- * Implementation of the IShoppingListService interface that provides operations for managing shopping lists.
- * <p>
- * Author: Miguel Ángel Moreno García
+ * Implementation of the IShoppingListService interface that provides operations for managing shopping lists
+ *
+ *  @since 2024
+ *  @author Miguel Angel Moreno Garcia
  */
 @Service
 public class ShoppinglistServiceImpl implements IShoppingListService {
     private final Logger logger = LoggerFactory.getLogger(ShoppinglistServiceImpl.class);
 
-    @Autowired
-    IShoppingListDAO shoppingListDAO;
+    private final IShoppingListDAO shoppingListDAO;
+    private final IProductService productService;
+    private final IUserService userService;
 
     @Autowired
-    private EntityManager entityManager;
-
-    @Autowired
-    IProductService productService;
-
-    @Autowired
-    IUserService userService;
+    public ShoppinglistServiceImpl(IShoppingListDAO shoppingListDAO, IUserService userService, IProductService productService) {
+        this.shoppingListDAO = shoppingListDAO;
+        this.userService = userService;
+        this.productService = productService;
+    }
 
     /**
      * Saves a shopping list in the system.
@@ -111,11 +111,24 @@ public class ShoppinglistServiceImpl implements IShoppingListService {
 
     }
 
+    /**
+     * Retrieves all shopping lists associated with a given user ID.
+     *
+     * @param userId The ID of the user.
+     * @return A list of shopping lists associated with the user.
+     */
     @Override
     public List<ShoppingList> findByUserId(int userId) {
         return shoppingListDAO.findShoppingListByUserId(userId);
     }
 
+    /**
+     * Updates a shopping list based on the information provided in the ShoppingListResponseDTO.
+     *
+     * @param shoppingListResponseDTO The DTO containing the updated shopping list information.
+     * @return The updated shopping list entity.
+     * @throws IllegalArgumentException If the provided shopping list ID does not exist.
+     */
     @Override
     public ShoppingList updateShoppingList(ShoppingListResponseDTO shoppingListResponseDTO) {
         Integer id = shoppingListResponseDTO.getId();
@@ -140,6 +153,14 @@ public class ShoppinglistServiceImpl implements IShoppingListService {
         return shoppingListDAO.save(updatedShoppingList);
     }
 
+
+    /**
+     * Deletes a shopping list associated with a specific user.
+     *
+     * @param userId         The ID of the user.
+     * @param shoppingListId The ID of the shopping list to delete.
+     * @throws EntityNotFoundException If the shopping list or user does not exist.
+     */
     @Override
     public void deleteShoppingListByUserId(int userId, int shoppingListId) {
         Optional<ShoppingList> shoppingListOpt = shoppingListDAO.findById(shoppingListId);
@@ -161,6 +182,13 @@ public class ShoppinglistServiceImpl implements IShoppingListService {
 
     }
 
+    /**
+     * Removes changes made to a shopping list associated with a specific user.
+     *
+     * @param userId         The ID of the user.
+     * @param shoppingListId The ID of the shopping list.
+     * @throws EntityNotFoundException If the shopping list or user does not exist.
+     */
     @Override
     public void removeChanges(int userId, int shoppingListId) {
         Optional<ShoppingList> shoppingListOpt = shoppingListDAO.findById(shoppingListId);
@@ -182,6 +210,14 @@ public class ShoppinglistServiceImpl implements IShoppingListService {
         shoppingListDAO.save(shoppingList);
     }
 
+
+    /**
+     * Creates a new shopping list based on the information provided in the ShoppingListResponseDTO.
+     *
+     * @param shoppingListResponseDTO The DTO containing the information of the new shopping list.
+     * @return The newly created shopping list entity.
+     * @throws IllegalArgumentException If the creator user ID is invalid.
+     */
     @Override
     public ShoppingList createShoppingList(ShoppingListResponseDTO shoppingListResponseDTO) {
         Integer creatorUserId = shoppingListResponseDTO.getCreatorUserId();
@@ -211,6 +247,12 @@ public class ShoppinglistServiceImpl implements IShoppingListService {
         return newShoppingList;
     }
 
+    /**
+     * Retrieves a shopping list by its unique code.
+     *
+     * @param uniqueCode The unique code of the shopping list.
+     * @return An Optional containing the found shopping list if it exists, otherwise an empty Optional.
+     */
     @Override
     public Optional<ShoppingList> findShoppingListByUniqueCode(String uniqueCode) {
         return shoppingListDAO.findShoppingListByUniqueCode(uniqueCode);
@@ -231,6 +273,15 @@ public class ShoppinglistServiceImpl implements IShoppingListService {
         }
     }
 
+    /**
+     * Retrieves a list of ShoppingListProduct entities based on the provided product IDs and quantities.
+     *
+     * @param id                   The ID of the shopping list.
+     * @param oldShoppingList      The existing shopping list entity.
+     * @param shoppingListProducts A map containing product IDs as keys and their corresponding quantities.
+     * @return A list of ShoppingListProduct entities.
+     * @throws IllegalArgumentException If any of the provided product IDs does not exist in the database.
+     */
     private List<ShoppingListProduct> obtainProductsFromIds(Integer id, ShoppingList oldShoppingList, Map<String, Integer> shoppingListProducts) {
         List<ShoppingListProduct> shoppingListProductsToSave = new ArrayList<>();
         for (String productId : shoppingListProducts.keySet()) {
@@ -249,6 +300,12 @@ public class ShoppinglistServiceImpl implements IShoppingListService {
         return shoppingListProductsToSave;
     }
 
+    /**
+     * Retrieves a list of UserEntity entities based on the provided user IDs.
+     *
+     * @param usersId The list of user IDs.
+     * @return A list of UserEntity entities.
+     */
     private List<UserEntity> obtainUsersFromIds(List<Integer> usersId) {
         List<UserEntity> userEntities = new ArrayList<>();
         if (usersId != null && !usersId.isEmpty()) {

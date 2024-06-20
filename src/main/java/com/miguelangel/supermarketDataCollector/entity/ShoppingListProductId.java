@@ -6,6 +6,12 @@ import jakarta.persistence.Embeddable;
 import java.io.Serial;
 import java.util.Objects;
 
+/**
+ * An embeddable class representing the composite primary key for the ShoppingListProduct entity.
+ *
+ * @since 2024
+ * @author Miguel Ángel Moreno García
+ */
 @Embeddable
 public class ShoppingListProductId implements java.io.Serializable {
 
@@ -18,28 +24,57 @@ public class ShoppingListProductId implements java.io.Serializable {
 	@Column(name = "product_id", nullable = false, length = 50)
 	private String productId;
 
+	/**
+	 * Default constructor.
+	 */
 	public ShoppingListProductId() {
 	}
 
+	/**
+	 * Constructs a ShoppingListProductId with the specified shopping list id and product id.
+	 *
+	 * @param shoppingListId the shopping list id
+	 * @param productId      the product id
+	 */
 	public ShoppingListProductId(int shoppingListId, String productId) {
 		this.shoppingListId = shoppingListId;
 		this.productId = productId;
 	}
 
-	
+
+	/**
+	 * Retrieves the shopping list id.
+	 *
+	 * @return the shopping list id
+	 */
 	public int getShoppingListId() {
 		return this.shoppingListId;
 	}
 
+	/**
+	 * Sets the shopping list id.
+	 *
+	 * @param shoppingListId the shopping list id to set
+	 */
 	public void setShoppingListId(int shoppingListId) {
 		this.shoppingListId = shoppingListId;
 	}
 
-	
+
+	/**
+	 * Retrieves the product id.
+	 *
+	 * @return the product id
+	 */
 	public String getProductId() {
 		return this.productId;
 	}
 
+	/**
+	 * Sets the product id.
+	 *
+	 * @param productId the product id to set
+	 */
 	public void setProductId(String productId) {
 		this.productId = productId;
 	}

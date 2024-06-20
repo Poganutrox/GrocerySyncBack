@@ -12,7 +12,14 @@ import org.springframework.context.annotation.Configuration;
 import com.miguelangel.supermarketDataCollector.entity.Product;
 import com.miguelangel.supermarketDataCollector.model.IProvider;
 import com.miguelangel.supermarketDataCollector.services.IProductService;
+import org.springframework.scheduling.annotation.Scheduled;
 
+/**
+ * Configuration class for scheduling data retrieval from various providers.
+ *
+ * @since 2024
+ * @author Miguel Ángel Moreno García
+ */
 @Configuration
 public class ScheduleConfiguration {
 	@Autowired
@@ -23,7 +30,11 @@ public class ScheduleConfiguration {
 
 	private final Logger logger = LoggerFactory.getLogger(ScheduleConfiguration.class);
 
-	//@Scheduled(cron = "0 */10 * ? * *") //CAMBIAR CRON A DIARIO!
+	/**
+	 * Scheduled task to retrieve data from all registered providers and save it into the database.
+	 * Runs daily at midday.
+	 */
+	@Scheduled(cron = "0 0 12 * * ?") //DAILY CRON AT MIDDAY
 	private void scheduleDataRetrieving() throws InterruptedException {
 		Set<Thread> supermarketProviders = new HashSet<>();
 		Set<Product> products = Collections.synchronizedSet(new HashSet<>());
@@ -49,6 +60,11 @@ public class ScheduleConfiguration {
 		saveData(products);
 	}
 
+	/**
+	 * Saves the retrieved products into the database.
+	 *
+	 * @param products The set of products to be saved.
+	 */
 	private void saveData(Set<Product> products) {
 		boolean successProducts = productService.saveAllProducts(products);
 		if (!successProducts) {

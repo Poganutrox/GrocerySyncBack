@@ -8,8 +8,9 @@ import com.miguelangel.supermarketDataCollector.entity.ShoppingList;
 
 /**
  * Interface defining operations available for managing shopping lists.
- * <p>
- * Author: Miguel Ángel Moreno García
+ *
+ *  @since 2024
+ *  @author Miguel Angel Moreno Garcia
  */
 public interface IShoppingListService {
 
@@ -52,11 +53,43 @@ public interface IShoppingListService {
 	 */
 	ShoppingList delete(ShoppingList shoppinglist);
 
+	/**
+	 * Creates a new shopping list based on the provided DTO.
+	 *
+	 * @param shoppingListResponseDTO The DTO containing information for creating the shopping list.
+	 * @return The newly created shopping list.
+	 */
 	ShoppingList createShoppingList(ShoppingListResponseDTO shoppingListResponseDTO);
+
+	/**
+	 * Finds a shopping list by its unique code.
+	 *
+	 * @param uniqueCode The unique code of the shopping list.
+	 * @return An Optional containing the found shopping list, or empty if not found.
+	 */
 	Optional<ShoppingList> findShoppingListByUniqueCode(String uniqueCode);
+
+	/**
+	 * Updates an existing shopping list based on the provided DTO.
+	 *
+	 * @param shoppingListResponseDTO The DTO containing information for updating the shopping list.
+	 * @return The updated shopping list.
+	 */
 	ShoppingList updateShoppingList(ShoppingListResponseDTO shoppingListResponseDTO);
 
+	/**
+	 * Deletes a shopping list associated with a specific user.
+	 *
+	 * @param userId          The user ID whose shopping list is to be deleted.
+	 * @param shoppingListId  The ID of the shopping list to be deleted.
+	 */
 	void deleteShoppingListByUserId(int userId, int shoppingListId);
 
+	/**
+	 * Removes all changes made to a shopping list associated with a specific user.
+	 *
+	 * @param userId          The user ID whose shopping list changes are to be removed.
+	 * @param shoppingListId  The ID of the shopping list for which changes are to be removed.
+	 */
 	void removeChanges(int userId, int shoppingListId);
 }

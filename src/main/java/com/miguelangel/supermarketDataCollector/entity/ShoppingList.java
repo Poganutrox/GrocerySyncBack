@@ -7,6 +7,15 @@ import java.util.*;
 
 import jakarta.persistence.*;
 
+/**
+ * Represents a shopping list within the supermarket data collection system.
+ * This class is mapped to the "shoppinglist" table in the database.
+ * Each shopping list has a unique identifier, a creator user, a name, a creation date, a status,
+ * a unique share code, and associations with users and products.
+ *
+ * @since 2024
+ * @author Miguel Angel Moreno Garcia
+ */
 @Entity
 @Table(name = "shoppinglist")
 public class ShoppingList implements java.io.Serializable {
@@ -50,13 +59,32 @@ public class ShoppingList implements java.io.Serializable {
         uniqueShareCode = UUID.randomUUID().toString();
     }
 
+    /**
+     * Default constructor.
+     */
     public ShoppingList() {
     }
 
+    /**
+     * Constructs a ShoppingList with the specified id.
+     *
+     * @param id the id of the shopping list
+     */
     public ShoppingList(int id) {
         this.id = id;
     }
 
+    /**
+     * Constructs a ShoppingList with the specified id, creator user, name, creation date, status, users, and products.
+     *
+     * @param id the id of the shopping list
+     * @param creatorUser the creator user of the shopping list
+     * @param name the name of the shopping list
+     * @param creationDate the creation date of the shopping list
+     * @param status the status of the shopping list
+     * @param userEntities the users associated with the shopping list
+     * @param shoppingListProducts the products associated with the shopping list
+     */
     public ShoppingList(int id, UserEntity creatorUser, String name, LocalDate creationDate, Boolean status, Set<UserEntity> userEntities,
                         Set<ShoppingListProduct> shoppingListProducts) {
         this.id = id;
@@ -68,6 +96,16 @@ public class ShoppingList implements java.io.Serializable {
         this.shoppingListProducts = shoppingListProducts;
     }
 
+    /**
+     * Constructs a ShoppingList with the specified creator user, name, creation date, status, users, and products.
+     *
+     * @param userEntity the creator user of the shopping list
+     * @param name the name of the shopping list
+     * @param creationDate the creation date of the shopping list
+     * @param status the status of the shopping list
+     * @param userEntities the users associated with the shopping list
+     * @param shoppingListProducts the products associated with the shopping list
+     */
     public ShoppingList(UserEntity userEntity, String name, LocalDate creationDate, Boolean status, Set<UserEntity> userEntities,
                         Set<ShoppingListProduct> shoppingListProducts) {
         this.creatorUser = userEntity;
@@ -78,85 +116,186 @@ public class ShoppingList implements java.io.Serializable {
         this.shoppingListProducts = shoppingListProducts;
     }
 
+    /**
+     * Returns the id of the shopping list.
+     *
+     * @return the id of the shopping list
+     */
     public int getId() {
         return this.id;
     }
 
+    /**
+     * Sets the id of the shopping list.
+     *
+     * @param id the id of the shopping list
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Returns the creator user of the shopping list.
+     *
+     * @return the creator user of the shopping list
+     */
     public UserEntity getUser() {
         return this.creatorUser;
     }
 
+    /**
+     * Sets the creator user of the shopping list.
+     *
+     * @param userEntity the creator user of the shopping list
+     */
     public void setUser(UserEntity userEntity) {
         this.creatorUser = userEntity;
     }
 
+    /**
+     * Returns the name of the shopping list.
+     *
+     * @return the name of the shopping list
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Sets the name of the shopping list.
+     *
+     * @param name the name of the shopping list
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Returns the creation date of the shopping list.
+     *
+     * @return the creation date of the shopping list
+     */
     public LocalDate getCreationDate() {
         return this.creationDate;
     }
 
+    /**
+     * Sets the creation date of the shopping list.
+     *
+     * @param creationDate the creation date of the shopping list
+     */
     public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }
 
+    /**
+     * Returns the status of the shopping list.
+     *
+     * @return the status of the shopping list
+     */
     public Boolean getStatus() {
         return this.status;
     }
 
+    /**
+     * Sets the status of the shopping list.
+     *
+     * @param status the status of the shopping list
+     */
     public void setStatus(Boolean status) {
         this.status = status;
     }
 
+    /**
+     * Returns the users associated with the shopping list.
+     *
+     * @return the users associated with the shopping list
+     */
     public Set<UserEntity> getUsers() {
         return this.userEntities;
     }
 
+    /**
+     * Sets the users associated with the shopping list.
+     *
+     * @param userEntities the users associated with the shopping list
+     */
     public void setUsers(Set<UserEntity> userEntities) {
         this.userEntities = userEntities;
     }
 
+    /**
+     * Returns the products associated with the shopping list.
+     *
+     * @return the products associated with the shopping list
+     */
     public Set<ShoppingListProduct> getShoppingListProducts() {
         return this.shoppingListProducts;
     }
 
+    /**
+     * Sets the products associated with the shopping list.
+     *
+     * @param shoppingListProducts the products associated with the shopping list
+     */
     public void setShoppingListProducts(Set<ShoppingListProduct> shoppingListProducts) {
         this.shoppingListProducts = shoppingListProducts;
     }
 
+    /**
+     * Returns the creator user of the shopping list.
+     *
+     * @return the creator user of the shopping list
+     */
     public UserEntity getCreatorUser() {
         return creatorUser;
     }
 
+    /**
+     * Sets the creator user of the shopping list.
+     *
+     * @param creatorUser the creator user of the shopping list
+     */
     public void setCreatorUser(UserEntity creatorUser) {
         this.creatorUser = creatorUser;
     }
 
+    /**
+     * Returns the unique share code of the shopping list.
+     *
+     * @return the unique share code of the shopping list
+     */
     public String getUniqueShareCode() {
         return uniqueShareCode;
     }
 
+    /**
+     * Sets the unique share code of the shopping list.
+     *
+     * @param uniqueShareCode the unique share code of the shopping list
+     */
     public void setUniqueShareCode(String uniqueShareCode) {
         this.uniqueShareCode = uniqueShareCode;
     }
 
+    /**
+     * Returns the users associated with the shopping list.
+     *
+     * @return the users associated with the shopping list
+     */
     public Set<UserEntity> getUserEntities() {
         return userEntities;
     }
 
+    /**
+     * Sets the users associated with the shopping list.
+     *
+     * @param userEntities the users associated with the shopping list
+     */
     public void setUserEntities(Set<UserEntity> userEntities) {
         this.userEntities = userEntities;
     }
+
 
     @Override
     public int hashCode() {

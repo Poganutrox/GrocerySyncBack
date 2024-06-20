@@ -36,6 +36,14 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 
+/**
+ * DiaProvider is a service that implements the IProvider interface.
+ * This service is responsible for collecting product data from the Dia supermarket.
+ * It fetches product information from Dia's online store and organizes it into entities.
+ *
+ * @since 2024
+ * @author Miguel Angel Moreno Garcia
+ */
 @Service
 @Order(OrderProvider.DIA)
 public class DiaProvider implements IProvider {
@@ -58,7 +66,7 @@ public class DiaProvider implements IProvider {
 
 				while (hasNextPage) {
 					try {
-						String uriParameter = URLEncoder.encode(parameter, StandardCharsets.UTF_8.toString());
+						String uriParameter = URLEncoder.encode(parameter, StandardCharsets.UTF_8);
 						final HttpRequest request = HttpRequest.newBuilder()
 								.uri(new URI(
 										String.format(getMarketUri(), uriParameter, uriParameter, uriParameter, page)))
@@ -77,9 +85,9 @@ public class DiaProvider implements IProvider {
 							hasNextPage = false;
 						}
 					} catch (JsonSyntaxException j) {
-						logger.error("Error con el formato del Json: " + j.getMessage());
+                        logger.error("Error con el formato del Json: {}", j.getMessage());
 					} catch (Exception e) {
-						logger.error("Error general: " + e.getMessage());
+                        logger.error("Error general: {}", e.getMessage());
 					}
 
 				}

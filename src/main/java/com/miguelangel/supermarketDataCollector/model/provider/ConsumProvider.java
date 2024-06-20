@@ -36,6 +36,14 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * ConsumProvider is a service that implements the IProvider interface.
+ * This service is responsible for collecting product data from the Consum supermarket.
+ * It fetches product information from Consum's online store and organizes it into entities.
+ *
+ * @since 2024
+ * @author Miguel Angel Moreno Garcia
+ */
 @Service
 @Order(OrderProvider.CONSUM)
 public class ConsumProvider implements IProvider {
@@ -52,7 +60,7 @@ public class ConsumProvider implements IProvider {
 
 	@Override
 	public Set<Product> collectProducts() {
-		logger.info("Starting... " + getSupermarket().getName());
+        logger.info("Starting... {}", getSupermarket().getName());
 		Set<Product> productList = new HashSet<>();
 
 		try {

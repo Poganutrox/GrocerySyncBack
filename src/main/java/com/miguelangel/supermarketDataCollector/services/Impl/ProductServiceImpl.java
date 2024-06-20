@@ -24,8 +24,9 @@ import jakarta.transaction.Transactional;
 
 /**
  * Implementation of the IProductService interface that provides operations for managing products.
- * <p>
- * Author: Miguel Ángel Moreno García
+ *
+ *  @since 2024
+ *  @author Miguel Angel Moreno Garcia
  */
 @Service
 public class ProductServiceImpl implements IProductService {
@@ -82,6 +83,12 @@ public class ProductServiceImpl implements IProductService {
         return true;
     }
 
+    /**
+     * Sets or removes a product as a favorite for a user.
+     * @param productId The unique identifier of the product.
+     * @param userId The unique identifier of the user.
+     * @return true if the operation was successful, false otherwise.
+     */
     @Override
     public boolean setProductFavourite(String productId, int userId) {
         Optional<Product> product;
@@ -116,12 +123,22 @@ public class ProductServiceImpl implements IProductService {
         }
     }
 
+    /**
+     * Retrieves the list of favorite products for the specified user.
+     * @param userId The unique identifier of the user.
+     * @return A list of favorite products for the user.
+     */
     @Override
     public List<Product> getFavouriteProducts(int userId) {
         return productDAO.findFavouriteProducts(userId);
     }
-
-
+    /**
+     * Retrieves the number of times a product has been added to a shopping list by the specified user.
+     * @param productId The unique identifier of the product.
+     * @param userId The unique identifier of the user.
+     * @return The number of times the product has been added to a shopping list.
+     * @throws RuntimeException If an error occurs while retrieving the information.
+     */
     @Override
     public Long getTimesProductInShoppingList(String productId, int userId) {
         Query query = entityManager.createNamedQuery("User.timesProductAddedToShoppingList");
@@ -134,6 +151,13 @@ public class ProductServiceImpl implements IProductService {
         }
     }
 
+    /**
+     * Retrieves the price variation for a product based on the user's preferences.
+     * @param productId The unique identifier of the product.
+     * @param userId The unique identifier of the user.
+     * @return The price variation for the product.
+     * @throws RuntimeException If an error occurs while retrieving the information.
+     */
     @Override
     public Double getPriceVariation(String productId, Integer userId) {
         Query query = entityManager.createNativeQuery("SELECT calculate_price_variation(:userId, :productId)");
@@ -167,6 +191,12 @@ public class ProductServiceImpl implements IProductService {
         return new PageImpl<>(pageResultListDTO, pageable, totalCount.intValue());
     }
 
+    /**
+     * Retrieves the total count of products based on the specified filters.
+     *
+     * @param filters A map of filters to apply.
+     * @return The total count of products matching the filters.
+     */
     @Transactional
     private Long getTotalCount(Map<String, Object> filters) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
@@ -195,7 +225,14 @@ public class ProductServiceImpl implements IProductService {
         return entityManager.createQuery(countQuery).getSingleResult();
     }
 
-
+    /**
+     * Retrieves a list of products based on specified filters, with pagination support.
+     *
+     * @param filters A map of filters to apply.
+     * @param page The page number.
+     * @param size The number of items per page.
+     * @return A list of products matching the filters and pagination criteria, represented as ProductDTO objects.
+     */
     @Transactional
     private List<ProductDTO> getProductList(Map<String, Object> filters, int page, int size) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();

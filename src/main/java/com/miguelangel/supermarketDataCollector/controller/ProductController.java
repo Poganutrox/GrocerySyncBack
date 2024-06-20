@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.*;
 
 import com.miguelangel.supermarketDataCollector.services.IProductService;
 
+/**
+ * Controller for handling product-related HTTP requests.
+ *
+ * @since 2024
+ * @author Miguel Ángel Moreno García
+ */
 @RestController
 @RequestMapping("/api/product")
 public class ProductController {
@@ -20,6 +26,12 @@ public class ProductController {
     @Autowired
     IProductService productService;
 
+    /**
+     * Retrieves a product by its ID.
+     *
+     * @param productId the ID of the product to retrieve
+     * @return a ResponseEntity containing the ProductDTO object and an HTTP status code
+     */
     @GetMapping(value = "/{id}", produces = "application/json")
     private ResponseEntity<ProductDTO> findById(@PathVariable("id") String productId) {
         Optional<Product> product = productService.findById(productId);
@@ -31,6 +43,20 @@ public class ProductController {
         return new ResponseEntity<>(productDTO, HttpStatus.OK);
     }
 
+    /**
+     * Retrieves products based on specified filters.
+     *
+     * @param productId       the ID of the product
+     * @param productName     the name of the product
+     * @param categoryId      the ID of the category
+     * @param supermarketIds  the IDs of the supermarkets
+     * @param onSale          whether the product is on sale
+     * @param priceSort       sorting order for price
+     * @param alphabeticSort  sorting order for name
+     * @param page            page number
+     * @param size            page size
+     * @return a Page containing ProductDTO objects
+     */
     @GetMapping(value = "/findBy", produces = "application/json")
     private Page<ProductDTO> getProductsBy(
             @RequestParam(required = false) String productId,
@@ -60,6 +86,13 @@ public class ProductController {
         return productService.findBy(filters, page, size);
     }
 
+    /**
+     * Set a product as favourite for a specific user.
+     *
+     * @param userId the ID of the user
+     * @param productId the ID of the product
+     * @return a ResponseEntity containing a boolean and an HTTP status code
+     */
     @GetMapping("/favourite")
     private ResponseEntity<Boolean> setProductFavourites(
             @RequestParam(value = "productId") String productId,
@@ -73,6 +106,12 @@ public class ProductController {
         }
     }
 
+    /**
+     * Retrieves the favourite products of a user.
+     *
+     * @param userId the ID of the user
+     * @return a ResponseEntity containing a Set of ProductDTO objects and an HTTP status code
+     */
     @GetMapping("/user/favourite")
     private ResponseEntity<Set<ProductDTO>> getProductFavourites(
             @RequestParam(value = "userId") int userId) {
@@ -87,6 +126,13 @@ public class ProductController {
         }
     }
 
+    /**
+     * Retrieves the number of times a product has been added to shopping lists by a user.
+     *
+     * @param productId the ID of the product
+     * @param userId    the ID of the user
+     * @return a ResponseEntity containing the number of times the product has been added and an HTTP status code
+     */
     @GetMapping("/added")
     private ResponseEntity<Long> getTimesProductAdded(
             @RequestParam String productId,
@@ -100,6 +146,13 @@ public class ProductController {
         }
     }
 
+    /**
+     * Retrieves the price variation of a product for a specific user.
+     *
+     * @param productId the ID of the product
+     * @param userId    the ID of the user
+     * @return a ResponseEntity containing the price variation of the product and an HTTP status code
+     */
     @GetMapping("/variation")
     private ResponseEntity<Double> getPriceVariation(
             @RequestParam String productId,

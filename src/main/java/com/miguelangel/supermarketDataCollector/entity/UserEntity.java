@@ -9,6 +9,13 @@ import jakarta.persistence.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * Represents a user entity in the system.
+ * This class is mapped to the "_user" table in the database.
+ *
+ * @since 2024
+ * @author Miguel Ángel Moreno García
+ */
 @NamedQueries({
         @NamedQuery(
                 name = "User.timesProductAddedToShoppingList",
@@ -73,6 +80,9 @@ public class UserEntity implements Serializable {
             @JoinColumn(name = "role_id", nullable = false)})
     private Set<Role> roles = new HashSet<>(0);
 
+    /**
+     * Automatically encodes the password and sets the creation date before persisting the entity.
+     */
     @PrePersist
     private void encodePasswordAndAutoCreatedAt(){
         PasswordEncoder encoder = new BCryptPasswordEncoder();

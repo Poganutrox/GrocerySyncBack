@@ -7,7 +7,14 @@ import java.util.Objects;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
-
+/**
+ * Represents the composite primary key for the PriceHistory entity.
+ * This class is mapped to the embedded primary key of the "pricehistory" table in the database.
+ * The primary key consists of a product ID and a date.
+ *
+ * @since 2024
+ * @author Miguel Ángel Moreno García
+ */
 @Embeddable
 public class PriceHistoryId implements java.io.Serializable {
 
@@ -20,27 +27,55 @@ public class PriceHistoryId implements java.io.Serializable {
 	@Column(name = "date", nullable = false, length = 13)
 	private LocalDate date;
 
+	/**
+	 * Default constructor.
+	 */
 	public PriceHistoryId() {
 	}
 
+	/**
+	 * Constructs a PriceHistoryId with the specified product ID and date.
+	 *
+	 * @param productId the ID of the product
+	 * @param date the date of the price record
+	 */
 	public PriceHistoryId(String productId, LocalDate date) {
 		this.productId = productId;
 		this.date = date;
 	}
 
-	
+	/**
+	 * Returns the product ID.
+	 *
+	 * @return the product ID
+	 */
 	public String getProductId() {
 		return this.productId;
 	}
 
+	/**
+	 * Sets the product ID.
+	 *
+	 * @param productId the product ID
+	 */
 	public void setProductId(String productId) {
 		this.productId = productId;
 	}
 
+	/**
+	 * Returns the date.
+	 *
+	 * @return the date
+	 */
 	public LocalDate getDate() {
 		return this.date;
 	}
 
+	/**
+	 * Sets the date.
+	 *
+	 * @param date the date
+	 */
 	public void setDate(LocalDate date) {
 		this.date = date;
 	}

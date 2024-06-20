@@ -2,6 +2,13 @@ package com.miguelangel.supermarketDataCollector.model;
 
 import com.miguelangel.supermarketDataCollector.entity.Category;
 
+
+/**
+ * This class provides static instances of Category objects representing various product categories.
+ *
+ *  @since 2024
+ *  @author Miguel Angel Moreno Garcia
+ */
 public class Categories {
     public static final Category ACEITE_ESPECIAS_Y_SALSAS = new Category(1, "Aceite, Especias y Salsas");
     public static final Category AGUA_Y_REFRESCOS = new Category(2, "Agua y Refrescos");
