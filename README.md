@@ -31,19 +31,20 @@ GrocerySyncBack/
 │   │   ├── java/
 │   │   │   └── com/
 │   │   │       └── grocerysync/
-│   │   │           ├── controllers/
-│   │   │           ├── models/
-│   │   │           ├── repositories/
+│   │   │           ├── configuration/
+│   │   │           ├── controller/
+│   │   │           ├── dao/
+│   │   │           ├── dto/
+│   │   │           ├── entity/
+│   │   │           ├── model/
 │   │   │           └── services/
 │   │   └── resources/
 │   │       ├── application.properties
-│   │       └── data.sql
 │   └── test/
 │       └── java/
 │           └── com/
 │               └── grocerysync/
 ├── build.gradle.kts
-└── Dockerfile
 ```
 
 ## ⚙️ Setup & Deployment
