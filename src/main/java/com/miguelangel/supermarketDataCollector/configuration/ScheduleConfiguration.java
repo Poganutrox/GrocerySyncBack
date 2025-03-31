@@ -34,7 +34,7 @@ public class ScheduleConfiguration {
 	 * Scheduled task to retrieve data from all registered providers and save it into the database.
 	 * Runs daily at midday.
 	 */
-	@Scheduled(cron = "0 0 12 * * ?") //DAILY CRON AT MIDDAY
+	@Scheduled(cron = "0 6 17 * * ?") //DAILY CRON AT MIDDAY
 	private void scheduleDataRetrieving() throws InterruptedException {
 		Set<Thread> supermarketProviders = new HashSet<>();
 		Set<Product> products = Collections.synchronizedSet(new HashSet<>());
